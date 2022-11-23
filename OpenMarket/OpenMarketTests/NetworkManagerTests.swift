@@ -63,4 +63,19 @@ final class NetworkManagerTests: XCTestCase {
             }
         })
     }
+    
+    func test_productList호출() {
+        sut = NetworkManager(session: URLSession.shared)
+        
+        sut.request(endpoint: OpenMarketAPI.productList(pageNumber: 1, itemsPerPage: 100), dataType: ProductList.self) { result in
+            switch result {
+            case .success(let productList):
+                print(productList)
+                XCTAssertEqual(productList.lastIndex, 100)
+            case .failure(let error):
+                print(error)
+                XCTFail()
+            }
+        }
+    }
 }

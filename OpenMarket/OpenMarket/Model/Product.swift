@@ -7,13 +7,14 @@ import Foundation
 struct Product: Decodable, Identifiable, Equatable {
     let ID: Int
     let vendorID: Int
+    let vendorName: String?
     let name: String
     let productDescription: String
     let thumbnailURL: String
     let currency: Currency
-    let price: Int
-    let bargainPrice: Int
-    let discountedPrice: Int
+    let price: Double
+    let bargainPrice: Double
+    let discountedPrice: Double
     let stock: Int
     let createdAt: String
     let issuedAt: String
@@ -21,6 +22,7 @@ struct Product: Decodable, Identifiable, Equatable {
     enum CodingKeys: String, CodingKey {
         case ID = "id"
         case vendorID = "vendor_id"
+        case vendorName
         case name
         case productDescription = "description"
         case thumbnailURL = "thumbnail"

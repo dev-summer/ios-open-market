@@ -38,6 +38,7 @@ final class NetworkManager {
                 let result = try JSONDecoder().decode(dataType, from: data)
                 completion(.success(result))
             } catch {
+                print(error)
                 completion(.failure(.decodingError))
             }
         }
