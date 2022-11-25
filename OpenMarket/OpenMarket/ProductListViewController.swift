@@ -24,7 +24,6 @@ class ProductListViewController: UIViewController {
     private var products: [Product] = [] {
         didSet {
             configureListCollectionView()
-            configureGridCollectionView()
             configureDataSource()
         }
     }
@@ -35,16 +34,23 @@ class ProductListViewController: UIViewController {
         
         self.navigationItem.titleView = segmentedControl
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add)
-        segmentedControl.addTarget(self, action: #selector(changeView), for: .touchUpInside)
+        segmentedControl.addTarget(self, action: #selector(changeView), for: .valueChanged)
         self.segmentedControl.selectedSegmentIndex = 0
+        
+        
+        
+        
     }
     
     @objc private func changeView() {
+        print("changed!")
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             gridCollectionView?.isHidden = true
             listCollectionView?.isHidden = false
         case 1:
+            print("grid!")
+            configureGridCollectionView()
             listCollectionView?.isHidden = true
             gridCollectionView?.isHidden = false
         default:
@@ -112,16 +118,16 @@ class ProductListViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        guard let gridCollectionView = gridCollectionView,
+        guard /* let gridCollectionView = gridCollectionView, */
               let listCollectionView = listCollectionView else { return }
-        gridCollectionView.register(GridCollectionViewCell.self, forCellWithReuseIdentifier: GridCollectionViewCell.identifier)
+//        gridCollectionView.register(GridCollectionViewCell.self, forCellWithReuseIdentifier: GridCollectionViewCell.identifier)
         listCollectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.identifier)
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             configureListDataSource(listCollectionView)
-        case 1:
-            configureGridDataSource(gridCollectionView)
+//        case 1:
+//            configureGridDataSource(gridCollectionView)
         default:
             configureListDataSource(listCollectionView)
         }
