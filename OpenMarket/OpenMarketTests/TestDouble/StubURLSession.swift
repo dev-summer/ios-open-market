@@ -6,11 +6,11 @@ import Foundation
 @testable import OpenMarket
 
 class StubURLSession: URLSessionable {
-    let data: Data
-    let response: URLResponse
-    let error: Error?
+    var data: Data?
+    var response: URLResponse?
+    var error: Error?
 
-    init(data: Data, response: URLResponse, error: Error?) {
+    init(data: Data?, response: URLResponse?, error: Error?) {
         self.data = data
         self.response = response
         self.error = error

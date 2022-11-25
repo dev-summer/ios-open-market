@@ -1,23 +1,26 @@
 //
-//  GridCollectionViewCell.swift
+//  ListCollectionViewCell.swift
 //  OpenMarket
 //
-//  Created by Jiyoung Lee on 2022/11/23.
+//  Created by Jiyoung Lee on 2022/11/25.
 //
 
 import UIKit
 
-class GridCollectionViewCell: UICollectionViewCell {
+class ListCollectionViewCell: UICollectionViewListCell {
     
-    static let identifier: String = "gridCell"
-
+    static let identifier: String = "listCell"
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
     override init(frame: CGRect) {
-        super.init(frame: .zero)
-        contentView.addSubview(stackView)
+        super.init(frame: frame)
+        contentView.addSubview(productImageView)
+        contentView.addSubview(productNameLabel)
+        contentView.addSubview(priceStackView)
+        contentView.addSubview(stockLabel)
         configureUI()
     }
     
@@ -43,7 +46,6 @@ class GridCollectionViewCell: UICollectionViewCell {
         let label: UILabel = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .headline)
-        label.textAlignment = .center
         return label
     }()
     
@@ -51,7 +53,6 @@ class GridCollectionViewCell: UICollectionViewCell {
         let label: UILabel = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
-        label.textAlignment = .center
         label.textColor = .gray
         return label
     }()
@@ -60,7 +61,6 @@ class GridCollectionViewCell: UICollectionViewCell {
         let label: UILabel = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
-        label.textAlignment = .center
         label.textColor = .gray
         return label
     }()
@@ -69,14 +69,14 @@ class GridCollectionViewCell: UICollectionViewCell {
         let label: UILabel = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
-        label.textAlignment = .center
+        label.textAlignment = .right
         label.textColor = .gray
         return label
     }()
     
     private lazy var priceStackView: UIStackView = {
         let stack = UIStackView()
-        stack.axis = .vertical
+        stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         stack.addArrangedSubview(priceLabel)
@@ -85,39 +85,23 @@ class GridCollectionViewCell: UICollectionViewCell {
         return stack
     }()
     
-    private lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .equalSpacing
-        stack.alignment = .center
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        
-        stack.addArrangedSubview(productImageView)
-        stack.addArrangedSubview(productNameLabel)
-        stack.addArrangedSubview(priceStackView)
-        stack.addArrangedSubview(stockLabel)
-  
-        return stack
-    }()
-    
     private func configureUI() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
-        ])
-        
-        NSLayoutConstraint.activate([
-            productImageView.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.95),
-            productImageView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.6),
-            productNameLabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.1),
-            priceLabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.1),
-            discountedPriceLabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.1),
-            stockLabel.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.1)
+            productImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            productImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9),
+            productImageView.widthAnchor.constraint(equalTo: productImageView.heightAnchor),
+            productImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            productNameLabel.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 5),
+            productNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            priceStackView.topAnchor.constraint(equalTo: productNameLabel.bottomAnchor),
+            priceStackView.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 5),
+            priceStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            stockLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            stockLabel.leadingAnchor.constraint(greaterThanOrEqualTo: productNameLabel.trailingAnchor, constant: 5),
+            stockLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
         ])
     }
-
+    
     func updateContents(_ product: Product) {
         var image: UIImage?
         guard let thumbnailURL = URL(string: product.thumbnailURL) else { return }
@@ -134,6 +118,4 @@ class GridCollectionViewCell: UICollectionViewCell {
         discountedPriceLabel.text = product.currency.rawValue + " \(product.discountedPrice)"
         stockLabel.text = "잔여수량 : \(product.stock)"
     }
-    
-    // TODO: - 할인가격, 품절 등 함수로 빼서 처리
 }

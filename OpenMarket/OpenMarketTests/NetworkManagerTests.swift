@@ -8,28 +8,31 @@ import XCTest
 final class NetworkManagerTests: XCTestCase {
     
     var sut: NetworkManager!
+    let stubSession =  StubURLSession(data: nil, response: nil, error: nil)
     
+    //
     func test_request_JSON데이터를_Product타입으로_decoding성공() {
         // given
         let jsonData = """
-{
-    "id": 215,
-    "vendor_id": 1,
-    "name": "호빵펀치",
-    "description": "주먹딱대",
-    "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/media.yagom-academy.kr/training-resources/1/20221119/275fc09e67a311eda9179de0f903b0ce_thumb.jpeg",
-    "currency": "KRW",
-    "price": 100.0,
-    "bargain_price": -200.0,
-    "discounted_price": 300.0,
-    "stock": 10,
-    "created_at": "2022-11-19T00:00:00",
-    "issued_at": "2022-11-19T00:00:00"
-}
-"""
+        {
+            "id": 215,
+            "vendor_id": 1,
+            "name": "호빵펀치",
+            "description": "주먹딱대",
+            "thumbnail": "https://s3.ap-northeast-2.amazonaws.com/media.yagom-academy.kr/training-resources/1/20221119/275fc09e67a311eda9179de0f903b0ce_thumb.jpeg",
+            "currency": "KRW",
+            "price": 100.0,
+            "bargain_price": -200.0,
+            "discounted_price": 300.0,
+            "stock": 10,
+            "created_at": "2022-11-19T00:00:00",
+            "issued_at": "2022-11-19T00:00:00"
+        }
+        """
         let expectedData = try? JSONDecoder().decode(Product.self, from: Data(jsonData.utf8))
         let expectedResponse = HTTPURLResponse(url: URL(string: "kakao")!, statusCode: 200, httpVersion: nil, headerFields: nil)
-        let stubSession: URLSessionable =  StubURLSession(data: Data(jsonData.utf8), response: expectedResponse!, error: nil)
+        stubSession.data = Data(jsonData.utf8)
+        stubSession.response = expectedResponse!
         sut = NetworkManager(session: stubSession)
         
         // when
@@ -46,10 +49,8 @@ final class NetworkManagerTests: XCTestCase {
     
     func test_request_의도적인error_주입시_예상한error가_발생() {
      // given
-        let testData = "bella"
-        let expectedData = try? JSONDecoder().decode(Product.self, from: Data(testData.utf8))
         let expectedResponse = HTTPURLResponse(url: URL(string: "kakao")!, statusCode: 200, httpVersion: nil, headerFields: nil)
-        let stubSession: URLSessionable =  StubURLSession(data: Data(testData.utf8), response: expectedResponse!, error: NetworkError.decodingError)
+        stubSession.error = NetworkError.decodingError
         sut = NetworkManager(session: stubSession)
         
         // when
@@ -64,18 +65,5 @@ final class NetworkManagerTests: XCTestCase {
         })
     }
     
-    func test_productList호출() {
-        sut = NetworkManager(session: URLSession.shared)
-        
-        sut.request(endpoint: OpenMarketAPI.productList(pageNumber: 1, itemsPerPage: 100), dataType: ProductList.self) { result in
-            switch result {
-            case .success(let productList):
-                print(productList)
-                XCTAssertEqual(productList.lastIndex, 100)
-            case .failure(let error):
-                print(error)
-                XCTFail()
-            }
-        }
-    }
+
 }
