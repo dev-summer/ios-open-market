@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum Currency: String, Decodable, Equatable {
+enum Currency: String, Codable, Equatable {
     case krw = "KRW"
     case usd = "USD"
 }

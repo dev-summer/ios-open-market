@@ -16,7 +16,8 @@
 		04E643902930F334001CAEF2 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E6438F2930F334001CAEF2 /* String+.swift */; };
 		570228E5294219A800877268 /* ProductRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570228E4294219A800877268 /* ProductRegisterViewController.swift */; };
 		570228E72942D92400877268 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570228E62942D92400877268 /* HTTPMethod.swift */; };
-		570228F02946CA4200877268 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570228EF2946CA4200877268 /* MultipartFormData.swift */; };
+		570228F02946CA4200877268 /* HTTPBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570228EF2946CA4200877268 /* HTTPBody.swift */; };
+		570228F229470E4000877268 /* ProductRegisterParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570228F129470E4000877268 /* ProductRegisterParameters.swift */; };
 		5717E8DF292B8655009B7C58 /* URLSessionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717E8DE292B8655009B7C58 /* URLSessionable.swift */; };
 		5717E8E2292B86C5009B7C58 /* StubURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717E8E1292B86C5009B7C58 /* StubURLSession.swift */; };
 		5717E8E6292B871B009B7C58 /* URLSession+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717E8E5292B871B009B7C58 /* URLSession+.swift */; };
@@ -62,7 +63,8 @@
 		3B5463A69DC37D9D6B29F973 /* Pods_OpenMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		570228E4294219A800877268 /* ProductRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRegisterViewController.swift; sourceTree = "<group>"; };
 		570228E62942D92400877268 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		570228EF2946CA4200877268 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		570228EF2946CA4200877268 /* HTTPBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPBody.swift; sourceTree = "<group>"; };
+		570228F129470E4000877268 /* ProductRegisterParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRegisterParameters.swift; sourceTree = "<group>"; };
 		5717E8DE292B8655009B7C58 /* URLSessionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionable.swift; sourceTree = "<group>"; };
 		5717E8E1292B86C5009B7C58 /* StubURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubURLSession.swift; sourceTree = "<group>"; };
 		5717E8E5292B871B009B7C58 /* URLSession+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+.swift"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				0422A94129237ED200BD97CD /* ProductList.swift */,
 				57F1C34E2923825E006240E2 /* Product.swift */,
+				570228F129470E4000877268 /* ProductRegisterParameters.swift */,
 				57F1C3502923837A006240E2 /* Currency.swift */,
 				0422A943292386B200BD97CD /* ProductImage.swift */,
 				0422A945292387DD00BD97CD /* Vendor.swift */,
@@ -130,8 +133,8 @@
 			children = (
 				5717E8E4292B8712009B7C58 /* Extension */,
 				0422A9482923A9A500BD97CD /* NetworkManager.swift */,
-				570228EF2946CA4200877268 /* MultipartFormData.swift */,
 				57F1C46929271869006240E2 /* Endpoint.swift */,
+				570228EF2946CA4200877268 /* HTTPBody.swift */,
 				570228E62942D92400877268 /* HTTPMethod.swift */,
 				04CA5F7129271A5B002FA01F /* NetworkError.swift */,
 				5717E8DE292B8655009B7C58 /* URLSessionable.swift */,
@@ -471,10 +474,11 @@
 				04E6438C2930E133001CAEF2 /* GridCollectionViewCell.swift in Sources */,
 				0422A946292387DD00BD97CD /* Vendor.swift in Sources */,
 				04CA5F7229271A5B002FA01F /* NetworkError.swift in Sources */,
+				570228F229470E4000877268 /* ProductRegisterParameters.swift in Sources */,
 				5746A295293F7A3E00325FE3 /* AlertConstants.swift in Sources */,
 				570228E5294219A800877268 /* ProductRegisterViewController.swift in Sources */,
 				C70FB0FD25BEF61C00C9924E /* SceneDelegate.swift in Sources */,
-				570228F02946CA4200877268 /* MultipartFormData.swift in Sources */,
+				570228F02946CA4200877268 /* HTTPBody.swift in Sources */,
 				5717E8E6292B871B009B7C58 /* URLSession+.swift in Sources */,
 				04E643902930F334001CAEF2 /* String+.swift in Sources */,
 				5746A28D293F4B4700325FE3 /* UILabel+.swift in Sources */,
